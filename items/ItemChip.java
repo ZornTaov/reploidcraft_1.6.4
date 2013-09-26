@@ -4,13 +4,15 @@ import java.util.List;
 
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
+import zornco.reploidcraft.ReploidCraft;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemChip extends ItemReploidCraftBase {
+public class ItemChip extends Item {
 
 	/** List of dye color names */
 	public static final String[] chipTypeNames = new String[] {"Blank Chip", "Blaze Chip", "Char Chip", "Creeper Chip", "Enderman Chip", "Enderdragon Chip", "Ghast Chip", "Magma Slime Chip", "Zombie Pigman Chip", "Skeleton Chip", "Slime Chip", "Spider Chip", "Wither Chip", "Wither Skeleton Chip", "Zombie Chip"};
@@ -25,6 +27,7 @@ public class ItemChip extends ItemReploidCraftBase {
 		super(par1);
 		this.setHasSubtypes(true);
 		this.setMaxDamage(0);
+		this.setCreativeTab(ReploidCraft.reploidTab);
 	}
 
 	@SideOnly(Side.CLIENT)

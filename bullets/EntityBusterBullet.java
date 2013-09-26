@@ -1,6 +1,7 @@
 package zornco.reploidcraft.bullets;
 
 import zornco.reploidcraft.ReploidCraft;
+import zornco.reploidcraftenv.bullets.EntityBulletBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBreakable;
 import net.minecraft.block.material.Material;

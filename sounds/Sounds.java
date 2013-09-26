@@ -11,9 +11,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 public class Sounds {
 	private static final String SOUND_RESOURCE_LOCATION = "zornco/reploidcraft/sounds/";
 	private static final String SOUND_PREFIX = "zornco.reploidcraft.sounds.";
-	public static String[] soundFiles = { "zornco/reploidcraft/sounds/bit.ogg", "zornco/reploidcraft/sounds/byte.ogg", "zornco/reploidcraft/sounds/chargeCont.ogg", "zornco/reploidcraft/sounds/chargeUp.ogg" };
-	public static final String BIT = "zornco.reploidcraft.sounds.bit";
-	public static final String BYTE = "zornco.reploidcraft.sounds.byte";
+	public static String[] soundFiles = { "zornco/reploidcraft/sounds/chargeCont.ogg", "zornco/reploidcraft/sounds/chargeUp.ogg" };
 	public static final String CHARGEUP = "zornco.reploidcraft.sounds.chargeUp";
 	public static final String CHARGECONT = "zornco.reploidcraft.sounds.chargeCont";
 	

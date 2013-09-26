@@ -13,8 +13,6 @@ import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import zornco.reploidcraft.ReploidCraft;
-import zornco.reploidcraft.items.ItemHPEnergy;
-import zornco.reploidcraft.items.ItemTank;
 import zornco.reploidcraft.sounds.Sounds;
 /**
  * Name and cast of this class are irrelevant
@@ -72,96 +70,5 @@ public class EventBus
 				event.drops.add(new EntityItem(victim.worldObj, victim.posX, victim.posY+0.2, victim.posZ, new ItemStack(ReploidCraft.weaponChip, 1, 14)));
 			}
 		}
-	}
-
-	/**
-	 * The key is the @ForgeSubscribe annotation and the cast of the Event you put in as argument.
-	 * The method name you pick does not matter. Method signature is public void, always.
-	 */
-	@ForgeSubscribe
-	public void entityAttacked(EntityItemPickupEvent event)
-	{
-		/*
-		 * You can then proceed to read and change the Event's fields where possible
-		 */
-		if(event.entityLiving == null || event.item == null) return;
-		EntityLiving playerEnt = event.entityLiving;
-		EntityItem item = event.item;
-		/*
-		 * Note this possibility to interrupt certain (not all) events
-		 */
-		/*if (event.isCancelable())
-		{
-			event.setCanceled(true);
-		}*/
-		if(item.getEntityItem().itemID == ReploidCraft.healthBit.itemID 
-				|| item.getEntityItem().itemID == ReploidCraft.healthByte.itemID 
-				//|| item.getEntityItem().itemID == ReploidCraft.weaponBit.shiftedIndex 
-				//|| item.getEntityItem().itemID == ReploidCraft.weaponByte.shiftedIndex 
-				)
-		{
-			if(event.entityLiving instanceof EntityPlayerMP && !playerEnt.isSneaking())
-			{
-				ItemHPEnergy bit = (ItemHPEnergy) item.getEntityItem()
-						.getItem();
-				switch (bit.type) {
-				case 0:
-					playerEnt.worldObj.playSoundAtEntity(playerEnt,
-							Sounds.BIT, 1.0F, 1.0F);
-					break;
-				case 1:
-					playerEnt.worldObj.playSoundAtEntity(playerEnt,
-							Sounds.BYTE, 1.0F, 1.0F);
-					break;
-				}
-				if (event.entityLiving.getHealth() == event.entityLiving.getMaxHealth())
-				{
-					processBit((EntityPlayerMP)event.entityLiving, item);
-				}
-				else {
-					bit.applyEffect(playerEnt, item.getEntityItem().stackSize);
-				}
-
-				item.getEntityItem().stackSize = 0;
-				item.setDead();
-				return;
-			}
-		}
-		/*
-		 * Events may offer further fields and methods. Just read them, it should be obvious.
-		 */
-	}
-	public void processBit(EntityPlayerMP player, EntityItem item)
-	{
-		for (int i = 0; i < 36; i++)
-		{
-			ItemStack is = player.inventory.getStackInSlot(i);
-
-			if (is == null) {
-				continue;
-			}
-			if (is.getItem().equals(ReploidCraft.healthTank)) {
-				if (ItemTank.getType(is).isEmpty())
-				{
-					ItemTank.setType(is, "HP");
-					is.setItemDamage(is.getItemDamage() <= 0 ? 0 : is.getItemDamage() - item.getEntityItem().stackSize*bitSize(item));
-					break;
-				}
-				if ((!ItemTank.getType(is).equals("HP")))
-					continue;
-				if (is.getItemDamage() == 0)
-					continue;
-				is.setItemDamage(is.getItemDamage() <= 0 ? 0 : is.getItemDamage() - item.getEntityItem().stackSize*bitSize(item));
-				break;
-			}
-		}
-	}
-	private int bitSize(EntityItem item) {
-		if(item.getEntityItem().itemID == ReploidCraft.healthBit.itemID)// || item.getEntityItem().itemID == ReploidCraft.weaponBit.shiftedIndex )
-			return 3;
-		else if(item.getEntityItem().itemID == ReploidCraft.healthByte.itemID)// || item.getEntityItem().itemID == ReploidCraft.weaponByte.shiftedIndex )
-			return 6;
-		else 
-			return 0;
 	}
 }

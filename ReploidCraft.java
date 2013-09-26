@@ -28,7 +28,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 
-@Mod(modid="Reploid", name="Reploid", version="0.0.1", dependencies = "required-after:mmmPowersuits", acceptedMinecraftVersions = "[1.5,)")
+@Mod(modid="Reploid", name="Reploid", version="0.0.1", dependencies = "required-after:mmmPowersuits;required-after:ReploidEnv", acceptedMinecraftVersions = "[1.5,)")
 @NetworkMod(packetHandler = PacketHandler.class, channels={"Reploid"}, clientSideRequired=true, serverSideRequired=false)
 public class ReploidCraft {
 
@@ -52,27 +52,11 @@ public class ReploidCraft {
 	
 	public static Item buster;
 	public static Item weaponChip;
-	
-	public static Item healthBit;
-	public static Item healthByte;
-	public static Item weaponBit;
-	public static Item weaponByte;
-	public static Item healthTank;
-	public static Item weaponTank;
-	public static Item extraMan;
-	public static Item component;
-	public static Item reploidPlate;
 
 	public static Item reploidHelm;
 	public static Item reploidChest;
 	public static Item reploidBelt;
 	public static Item reploidBoots;
-
-	public static Item platformPlacer;
-	public static Item doorBossItem;
-
-	public static Block spikes;
-	public static Block doorBossBlock;
 
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event) {
@@ -85,13 +69,11 @@ public class ReploidCraft {
 	@Init
 	public void load(FMLInitializationEvent event) {
 		config.addItems();
-		config.addBlocks();
 		config.addNames();
 		config.recipes.registerRecipes();
 		config.loadPowerModules();
 		proxy.registerRenderInformation();
 		events = new EventBus();
-		NetworkRegistry.instance().registerGuiHandler(this, proxy);
 
 		config.registerEntities();
 	}
